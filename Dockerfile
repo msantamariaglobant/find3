@@ -44,7 +44,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-instal
 	export PATH="/usr/local/go/bin:$PATH"; \
 	go version && \
 	mkdir /build && cd /build && \
-	git clone https://github.com/schollz/find3 && \
+	git clone https://github.com/msantamariaglobant/find3.git && \
 	mkdir /data && \
 	mkdir /app && \
 	echo '#!/bin/bash\n\
@@ -93,7 +93,7 @@ pid_file /data/mosquitto_config/pid\n'\
 	echo "rm go" && rm -rf /usr/local/go* && \
 	echo "rm perl" && rm -rf /usr/share/perl* && \
 	echo "rm build" && rm -rf /build* && \
-	echo "rm doc" && rm -rf /usr/share/doc* 
+	echo "rm doc" && rm -rf /usr/share/doc*
 
 WORKDIR /app
 CMD ["/app/startup.sh"]
