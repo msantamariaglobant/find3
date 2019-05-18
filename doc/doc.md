@@ -1,4 +1,4 @@
-# FIND Documentation 
+# FIND Documentation
 
 <img src="/images/find_logo.png" width="180px" alt="Home"/>
 
@@ -35,7 +35,7 @@ To get started, read the documentation and take a look at the repo. The easiest 
 
 - The [`find3-server`](/doc/server_setup.md) document explains how
   to set up your own FIND3 installation on a Linux server.
-  
+
 - The [`esp-client`](https://github.com/DatanoiseTV/esp-find3-client) is a repo that can be used to setup a scanner using ESP8266/ESP32.
 
 ## Applications
@@ -52,13 +52,13 @@ point to things such as the GitHub repository,
 mailing lists, user forums, and so on.
 
 - [The FIND3 project on GitHub](https://github.com/schollz/find3)
-- [Issue tracker](https://github.com/schollz/find3/issues)
+- [Issue tracker](https://github.com/msantamariaglobant/find3issues)
 - Official discussion forums / mailing lists:
   - [Slack channel](https://join.slack.com/t/find3/shared_invite/enQtMzU4MjY0NjE1NjU0LWRkY2JhNWFkM2U3Y2JhY2RlZTQ5ZTdmZTQ2M2UzMjI2MGVmMjZlOWQyZmU3MzM5YzIzOTM0YmYzYmQ3NTQzNjQ),
     for discussion FIND3 users and developers.
   - [FIND mailing list](http://eepurl.com/bhfFI1),
     a low-traffic list for important announcements about the project;
     all FIND3 users should subscribe.
-- [Contribution guidelines](https://github.com/schollz/find3/blob/master/CONTRIBUTING.md)
+- [Contribution guidelines](https://github.com/msantamariaglobant/find3blob/master/CONTRIBUTING.md)
 
 

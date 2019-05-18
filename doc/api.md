@@ -12,16 +12,16 @@ At this stage the front-end is very minimal. The only front-end available right 
 ## General
 
 > ### Ping server  {#ping}
-> 
+>
 > This is useful for seeing if the server is up.
-> 
+>
 > **Request**
 ```
 GET /ping
 ```
-> 
+>
 > **Response**
-> 
+>
 ```
 pong
 ```
@@ -31,16 +31,16 @@ pong
 
 
 > ### Current time {#time}
-> 
+>
 > This is useful for seeing if the server is up.
-> 
+>
 > **Request**
 ```
 GET /now
 ```
-> 
+>
 > **Response**
-> 
+>
 > This route simply returns the current UTC epoch time in milliseconds.
 >
 ```
@@ -53,16 +53,16 @@ GET /now
 
 
 > ### MQTT setup {#mqtt}
-> 
+>
 > This is the command to setup MQTT on FIND3 for your family. For more information see [the MQTT document](/doc/mqtt.md)
-> 
+>
 > **Request**
 ```
 GET /api/v1/mqtt/FAMILY
 ```
-> 
+>
 > **Response**
-> 
+>
 > This route returns the passphrase (`XXX`) that you can use to bind to MQTT.
 >
 ```
@@ -76,16 +76,16 @@ Added 'FAMILY' for mqtt. Your passphrase is 'XXX'
 
 
 > ### Dump database {#dump-database}
-> 
+>
 > This will return the SQL data for the database which can be used to backup the current state of the entire database.
-> 
+>
 > **Request**
 ```
 GET /api/v1/database/FAMILY
 ```
-> 
+>
 > **Response**
-> 
+>
 > If successful it returns the SQL for the current database. It will return an error message if unsuccesful.
 >
 ```
@@ -100,16 +100,16 @@ CREATE TABLE devices (id TEXT PRIMARY KEY, name TEXT);
 
 
 > ### Delete all data  {#delete}
-> 
+>
 > **Request**
 ```
 DELETE /api/v1/database/FAMILY
 ```
-> 
+>
 > The FAMILY is the name of your family used for your recordings. Making this request will delete all your data, and it is not recoverable.
-> 
+>
 > **Response**
-> 
+>
 ```
 {
     "message": "deleted FAMILY",
@@ -123,16 +123,16 @@ DELETE /api/v1/database/FAMILY
 
 
 > ### Delete location  {#delete-location}
-> 
+>
 > **Request**
 ```
 DELETE /api/v1/location/FAMILY/LOCATION
 ```
-> 
+>
 > The FAMILY is the name of your family used for your recordings. Making this request will delete all your data learned for LOCATION, and it is not recoverable.
-> 
+>
 > **Response**
-> 
+>
 ```
 {
     "message": "deleted location 'LOCATION' for FAMILY",
@@ -145,23 +145,23 @@ DELETE /api/v1/location/FAMILY/LOCATION
 ## General scanning
 
 > ### Post sensor data  {#sensor}
-> 
+>
 > **Request**
 ```
 POST /data
 ```
 ```
-{  
+{
    "d":"DEVICE",
    "f":"FAMILY",
    "t":1520424248897,
    "l":"LOCATION",
-   "s":{  
-      "bluetooth":{  
+   "s":{
+      "bluetooth":{
          "20:25:64:b7:91:42":-72,
-         "20:25:64:b8:06:38":-81,    
+         "20:25:64:b8:06:38":-81,
       },
-      "wifi":{  
+      "wifi":{
          "20:25:64:b7:91:40":-73,
          "70:4d:7b:11:3a:c8":-81,
          "88:d7:f6:a7:2a:4c":-39,
@@ -182,21 +182,21 @@ POST /data
    }
 }
 ```
-> 
+>
 > When posting you must include a JSON body that specifies the family name ("`f`") and the device name ("`d`").
 >
 > You can include current timestamp specified as the Epoch time in milliseconds at UTC ("`t`"), but this is optional. If it is not included, the server will assign the current time when it is received.
-> 
+>
 > The sensor data ("`s`") is a map where the keys are the type of the data. You can insert *any* type of data, but `wifi` and `bluetooth` are most common. These types of data are keys to a map of all the devices and their signals associated with that signal type.
 >
-> **Important:** The location("`l`") is optional. If it is specified it designates that sensor data to be used for learning. If it is not specified it designates that the sensor data will be used for only tracking. 
+> **Important:** The location("`l`") is optional. If it is specified it designates that sensor data to be used for learning. If it is not specified it designates that the sensor data will be used for only tracking.
 >
-> The GPS coordinates are optional. If submitted, they will be saved in a database with the location (if provided) and the sensor data. 
-> 
+> The GPS coordinates are optional. If submitted, they will be saved in a database with the location (if provided) and the sensor data.
+>
 > Also, optionally you can add the query parameter `?justsave=1` which will prevent the server from doing any classification on the incoming data.
 >
 > **Response**
-> 
+>
 ```
 {
     "message": "posted data",
@@ -206,20 +206,20 @@ POST /data
 >
 
 
-## Passive scanning 
+## Passive scanning
 
 > ### Post passive sensor data  {#post-passive}
-> 
+>
 > This endpoint is used for passive scanning. It will alert the server to effectively holdover these data for a certain amount of time (default 90 seconds) and then reverse the sensor data and put into the database.
-> 
+>
 > **Request**
 ```
 POST /passive
 ```
 > Requires same JSON body as `POST /data`.
-> 
+>
 > **Response**
-> 
+>
 ```
 {
     "message": "posted data",
@@ -228,13 +228,13 @@ POST /passive
 ```
 >
 
-&nbsp; 
+&nbsp;
 
 > ### Customize passive scanning  {#passive}
-> 
+>
 > This endpoint is used for customizing passive scanning. It will tell the server to filter out specified mac addresses for learning specified locations or change the window for collecting fingerprints.
-> 
->   
+>
+>
 > **Request**
 ```
 POST /api/v1/settings/passive
@@ -255,13 +255,13 @@ POST /api/v1/settings/passive
     "window": 90,
 }
 ```
-> 
+>
 > **Important:** Learning for **DEVICE** is turned **on** if the location ("`location`") is specified. Learning for **DEVICE** is turned **off** is the location ("`location`") is empty.
 >
 > You can learn on multiple devices in multiple locations simultaneously. *Always make sure to turn off learning before moving a device!*
 >
 > **Response**
-> 
+>
 > When turning on:
 ```
 {
@@ -276,21 +276,21 @@ POST /api/v1/settings/passive
     "success": true
 }
 ```
-> 
+>
 
 ## Calibration and analysis
 
 > ### Calibrate machine learning algorithms  {#calibration}
-> 
+>
 > This endpoint is used for calibrating and will cause the server to update all the machine learning algorithms with the latest learning data. Normally this endpoint will automatically run after aquiring ~20 fingerprints, but you can manually run it to make sure you get the most up-to-date calibration.
-> 
+>
 > **Request**
 ```
 GET /api/v1/calibrate/FAMILY
 ```
 >
 > **Response**
-> 
+>
 ```
 {
     "message": "calibrated data",
@@ -302,9 +302,9 @@ GET /api/v1/calibrate/FAMILY
 &nbsp;
 
 > ### Get analysis of calibration {#analysis}
-> 
-> This endpoint lists a lot of analysis that can give you an idea of how well the calibration did. It returns the `accuracy_breakdown` which is the location-specific correct guess percentage for the testing training set (a sequested 30% of original data not used for learning). 
-> 
+>
+> This endpoint lists a lot of analysis that can give you an idea of how well the calibration did. It returns the `accuracy_breakdown` which is the location-specific correct guess percentage for the testing training set (a sequested 30% of original data not used for learning).
+>
 > The `confusion_metrics` have a lot of metrics determined from a [Confusion Matrix](https://en.wikipedia.org/wiki/Confusion_matrix) from the test data. It is organized by machine learning algorithm. The one that is of use is the `informedness` which is used to determine the end probability for selecting a location guess.
 >
 > **Request**
@@ -313,17 +313,17 @@ GET /api/v1/efficacy/FAMILY
 ```
 >
 > **Response**
-> 
+>
 ```
-{  
-   "efficacy":{  
-      "accuracy_breakdown":{  
+{
+   "efficacy":{
+      "accuracy_breakdown":{
          "bathroom":0.7,
          "bedroom":0.8717948717948718,
       },
-      "confusion_metrics":{  
-         "AdaBoost":{  
-            "bathroom":{  
+      "confusion_metrics":{
+         "AdaBoost":{
+            "bathroom":{
                "true_positives":20,
                "false_positives":120,
                "true_negatives":1320,
@@ -332,7 +332,7 @@ GET /api/v1/efficacy/FAMILY
                "specificity":0.9166666666666666,
                "informedness":0.059523809523809534
             },
-            "bedroom":{  
+            "bedroom":{
                "true_positives":36,
                "false_positives":92,
                "true_negatives":621,
@@ -364,7 +364,7 @@ GET /api/v1/devices/FAMILY
 ```
 >
 > **Response**
-> 
+>
 ```
 {
     "devices": [
@@ -377,19 +377,19 @@ GET /api/v1/devices/FAMILY
 ```
 >
 
-&nbsp; 
+&nbsp;
 
 > ### Get the last known location for a device  {#location}
-> **Request** 
-> 
+> **Request**
+>
 ```
 GET /api/v1/location/FAMILY/DEVICE
 ```
 >
 > **Response**
-> 
+>
 > JSON with several components. The `analysis` the probability of each guess and the location, along with a breakdown of the probabilities associated with each machine learning algorithm (note most algorithms omitted for brevity).
-> 
+>
 > The `sensors` is the original sensor data sent to the server.
 ```
 {
@@ -482,7 +482,7 @@ GET /api/v1/location/FAMILY/DEVICE
 ```
 >
 
-&nbsp; 
+&nbsp;
 
 > ### Get a list of all location data for all devices  {#locations}
 > **Request**
@@ -491,12 +491,12 @@ GET /api/v1/locations/FAMILY
 ```
 >
 > **Response**
-> 
+>
 > Same as previous, except it is an array of the latest location for each device in the family.
 >
 
 
-&nbsp; 
+&nbsp;
 
 > ### Get simple list of devices grouped by location  {#by_location}
 > **Request**
@@ -512,11 +512,11 @@ GET /api/v1/by_location/FAMILY
 > - `probability=X` will return only devices who have a probability of `X` or greater (default 0.00)
 >
 > **Response**
-> 
-> Returns a list of `locations` which is a map containing the name of the location ("`location`"), and the total number of devices seen and a list of devices ("`devices`"). 
+>
+> Returns a list of `locations` which is a map containing the name of the location ("`location`"), and the total number of devices seen and a list of devices ("`devices`").
 >
 >Each device in the list has the name ("`device`"), the vendor determined from the Mac address ("`vendor`", if applicable), the timestamp that it was seen ("`timestamp`"), the probability it associates with that location ("`probability`"), whether or not the mac address is randomized ("`randomized`"), the number of devices is saw in its last sensor dump (`"num_scanners"`), the total time that the device as been seen in minutes (`"active_mins"`), and the time that the device was first seen ("`first_seen`").
-> 
+>
 > Example:
 >
 ```
@@ -581,7 +581,7 @@ GET /api/v1/by_location/FAMILY
 
 
 
-&nbsp; 
+&nbsp;
 
 > ### Get simple location of a single device {#location-basic}
 > **Request**
@@ -590,7 +590,7 @@ GET /api/v1/location_basic/FAMILY/DEVICE
 ```
 >
 > **Response**
-> 
+>
 > This is a much simplified response for use with embedded evices. The `data` has the latest location (`loc`) and probability (`p`) for the specified deivce.
 >
 > Additionaly it specifies how long ago the device was last seen at that location, in seconds (`seen`).
@@ -598,8 +598,8 @@ GET /api/v1/location_basic/FAMILY/DEVICE
 > Example:
 >
 ```
-{  
-   "data":{  
+{
+   "data":{
       "loc":"zakhome floor 2 office",
       "gps": {
           "lat": 47.5675768678,
@@ -615,18 +615,18 @@ GET /api/v1/location_basic/FAMILY/DEVICE
 >>
 
 
-## GPS 
+## GPS
 
 > ### Post GPS coordinate information  {#post-gps}
-> 
+>
 > This endpoint is used for specifying the GPS coordinates of learned locations.
-> 
+>
 > **Request**
 ```
 POST /api/v1/gps
 ```
 ```
-{  
+{
    "f":"FAMILY",
    "l":"LOCATION",
    "gps":{
@@ -637,9 +637,9 @@ POST /api/v1/gps
 }
 ```
 > Requires family and a location.
-> 
+>
 > **Response**
-> 
+>
 ```
 {
     "message": "posted data",
@@ -651,5 +651,5 @@ POST /api/v1/gps
 
 ## API requests?
 
-If you have API requests, please [file an idea on Github](https://github.com/schollz/find3/issues/new?title=Feature:%20).
+If you have API requests, please [file an idea on Github](https://github.com/msantamariaglobant/find3issues/new?title=Feature:%20).
 

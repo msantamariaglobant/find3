@@ -8,7 +8,7 @@ This document explains how to setup the `FIND3` server on your own setup.
 
 Make sure you have about 1 GB of RAM and a Linux computer (unless you are using Docker).
 
-## Install and run 
+## Install and run
 
 There are two ways to run - the easy way, using Docker, or the hard way, installing the source on the computer.
 
@@ -50,7 +50,7 @@ Now the server will be running on port `8005` and have an MQTT instance running 
 
 ### The hard way
 
-The hard way is to run FIND3 from the source. 
+The hard way is to run FIND3 from the source.
 
 There are a couple of prerequisites before installing from source. First install Python 3.5+ and Go 1.6+. Then install a C compiler for SQLite.
 
@@ -67,29 +67,29 @@ $ sudo apt-get install mosquitto-clients mosquitto
 Then get the latest source and Go dependencies.
 
 ```
-$ go get -u -v github.com/schollz/find3/...
+$ go get -u -v github.com/msantamariaglobant/find3...
 ```
 
 Then install the Python dependencies.
 
 ```
-$ cd $GOPATH/src/github.com/schollz/find3/server/ai
+$ cd $GOPATH/src/github.com/msantamariaglobant/find3server/ai
 $ sudo python3 -m pip install -r requirements.txt
 ```
 
 Now there are two pieces of the server to start. In one terminal you can run the AI server.
 
 ```
-$ cd $GOPATH/src/github.com/schollz/find3/server/ai
+$ cd $GOPATH/src/github.com/msantamariaglobant/find3server/ai
 $ make
 ```
 
 In the other terminal you can run the main data storage server.
 
 ```
-$ cd $GOPATH/src/github.com/schollz/find3/server/main
+$ cd $GOPATH/src/github.com/msantamariaglobant/find3server/main
 $ go build -v
-$ ./main -port 8005 
+$ ./main -port 8005
 ```
 
 ## Run the test suite
@@ -97,13 +97,13 @@ $ ./main -port 8005
 To test that things are working you can submit some test data to the server. Download a test script which will make requests to the server:
 
 ```bash
-$ cd $GOPATH/src/github.com/schollz/find3/server/main/testing
+$ cd $GOPATH/src/github.com/msantamariaglobant/find3server/main/testing
 $ python3 submit_jsons.py http://localhost:8005 testdb.learn.1439597065993.jsons
 ```
 
 You have just submitted 343 fingerprints for three different locations for the family `testdb` for the device `zack`.
 
-This test data had `location` associated with it, so you can use it for learning. To do the learning just do 
+This test data had `location` associated with it, so you can use it for learning. To do the learning just do
 
 ```bash
 $ http GET localhost:8005/api/v1/calibrate/testdb

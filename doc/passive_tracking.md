@@ -1,6 +1,6 @@
-# Passive tracking 
+# Passive tracking
 
-## Introduction 
+## Introduction
 
 It is possible to also use FIND3 to setup a system that can do *passive scanning*. In *passive scanning*, you setup multiple computers which capture packets from phones and use those to classify their location. In this mode the packets used for classification are only broadcast packets, that is packets that originate from a device that are being transmitted to all devices on the network. See [Time resolution](#time-resolution) for information on typical frequencies for these types of broadcasts.
 
@@ -18,8 +18,8 @@ The time resolution of passive tracking revolves around the frequency that the d
 
 These experiments were done with devices that were affiliated with a WiFi network.
 
-- When left unattended my laptop running Ubuntu 17 emits a WiFi broadcast every 2.1 ± 0.4 minutes. A desktop computer running Ubuntu 17 is similar, sending out a broadcast every 2.0 ± 0.4 minutes. 
-- A Google Home emits a WiFi broadcast every 6.5 ± 3.5 minutes. 
+- When left unattended my laptop running Ubuntu 17 emits a WiFi broadcast every 2.1 ± 0.4 minutes. A desktop computer running Ubuntu 17 is similar, sending out a broadcast every 2.0 ± 0.4 minutes.
+- A Google Home emits a WiFi broadcast every 6.5 ± 3.5 minutes.
 - A Pixel2 running the [`find3-android-scanner`](https://play.google.com/store/apps/details?id=com.internalpositioning.find3.find3app) in the background will be detected every 2.1 ± 0.8 minutes.
 - A Samsung phone without any active scanning seems to run only when its screen is unlocked (i.e phone is used). When the screen is on, and it is being used, it scans every 2.0 ± 0.1 minutes.
 
@@ -95,13 +95,13 @@ $ sudo ./find3-cli-scanner -i wlan0 -device DEVICE -family FAMILY \
 
 ## Learning {#learning}
 
-Unlike the active scanning, to do learning on the passive scanning mode you must tell the server which device to learn on. *You should not stop the scanning tool that is running on the scanning computers*. 
+Unlike the active scanning, to do learning on the passive scanning mode you must tell the server which device to learn on. *You should not stop the scanning tool that is running on the scanning computers*.
 
 Choose the name of the family you are using, here we will use "`FAMILY`".
 
 Then choose the device you would like to learn on. You can use multiple devices, computers or smartphones. You will need to get the MAC address of the device you are using. In smartphones this is under settings, and in computers it is located in the `ifconfig`. The device name in passive mode is also prefixed by `wifi-`, so if your MAC address is `60:57:18:3d:b8:14` your device name should be `wifi-60:57:18:3d:b8:14`. *Note:* If you are doing learning on your phone you can [download the `find3-android-scanner`](https://play.google.com/store/apps/details?id=com.internalpositioning.find3.find3app) to speed up the number of broadcasts the phone makes.
 
-Once you have the device name you can tell the server where that device is, say the "living room". 
+Once you have the device name you can tell the server where that device is, say the "living room".
 
 ```
 $ http POST https://cloud.internalpositioning.com/api/v1/settings/passive \
@@ -133,7 +133,7 @@ When scanner computers are running the `find3-cli-scanner` tool, then all device
 
 Each scanning computer submits the data point for one device. The server synchronizes all the scanning computers by waiting a specified amount of time (the time window) for collecting the data point for each device. This time window is 90 seconds by default which is enough time to guarantee that the server will hear from every scanning computer (that have a scan time of 40 seconds). You can change these parameters.
 
-To change the scantime on a scanning computer just use the flag `-scantime`. 
+To change the scantime on a scanning computer just use the flag `-scantime`.
 
 To change the window to `X` seconds, use:
 
@@ -155,7 +155,7 @@ $ http POST https://cloud.internalpositioning.com/api/v1/settings/passive \
 
 ## Issues?
 
-If you have issues, please [file a bug report on Github](https://github.com/schollz/find3/issues/new?template=bugs.md&title=Bug:%20).
+If you have issues, please [file a bug report on Github](https://github.com/msantamariaglobant/find3issues/new?template=bugs.md&title=Bug:%20).
 
 ## Source
 

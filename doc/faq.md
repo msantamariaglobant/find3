@@ -12,7 +12,7 @@ The Framework for Internal Navigation and Discovery (FIND) allows you to use you
 
 The name, "FIND" stands for *the Framework for Internal Navigation and Discovery*. The number 3 specifically indicates the 3rd and latest version.
 
-Using FIND, and only your smartphone or laptop, you will be able to pinpoint your position in your home or office by evaluating surrounding radio waves (Bluetooth or WiFi).  Unlike GPS on your smartphone, this system has a geo-location precision of below 10 sq ft. Also unlike GPS, the app utilizes pre-existing operations so it has no significant cost to your battery. 
+Using FIND, and only your smartphone or laptop, you will be able to pinpoint your position in your home or office by evaluating surrounding radio waves (Bluetooth or WiFi).  Unlike GPS on your smartphone, this system has a geo-location precision of below 10 sq ft. Also unlike GPS, the app utilizes pre-existing operations so it has no significant cost to your battery.
 
 This system is open-source and fully configurable but also easy to use and simple to set up. It is suited to small-scale home applications as well as large-scale business and school applications.
 
@@ -25,7 +25,7 @@ The point is to eventually incorporate FIND into home automation and lifestyle t
 
 ## Why create something new rather than work on an existing system? {#why-new}
 
-I started working on FIND in 2009 when there were very few, if any solutions for internal positioning. Currently, there are more (even the latest Android P is offering support using RTT now). Unfortunately, still, most solutions are not open-source, or they require external hardware (beacons, etc.), or they are expensive, or they just don’t work very well. 
+I started working on FIND in 2009 when there were very few, if any solutions for internal positioning. Currently, there are more (even the latest Android P is offering support using RTT now). Unfortunately, still, most solutions are not open-source, or they require external hardware (beacons, etc.), or they are expensive, or they just don’t work very well.
 
 
 ## How does it work?  {#how-does-it-work}
@@ -35,14 +35,14 @@ Each time a Bluetooth/WiFi-enabled device conducts a scan of nearby devices, it 
 
 The access points can be anything - routers, Rokus, Raspberry Pis. They also can be anywhere - since they only need to be seen and not connected to, it will successfully use routers that are in a different building.
 
-The basis of this system is to catalog all the fingerprints about the Wifi routers in the area (MAC addresses and signal values) and then classify them according to their location. (More information about classification is in the [Machine learning](#machine-learning) document) This is done using a Android App, or computer program, that collects the fingerprints, and then sends them on to the FIND server which can compute the location. 
+The basis of this system is to catalog all the fingerprints about the Wifi routers in the area (MAC addresses and signal values) and then classify them according to their location. (More information about classification is in the [Machine learning](#machine-learning) document) This is done using a Android App, or computer program, that collects the fingerprints, and then sends them on to the FIND server which can compute the location.
 
 Locations are determined on the FIND server using classification. Currently the server supports several different machine learning algorithms. Positioning by classification is accomplished by first learning the distributions of WiFi signals for a given location and then classifying it during tracking. Learning only takes ~10 minutes and will last almost indefinitely. The WiFi fingerprints are also the same across all devices so that learning using one device is guaranteed to work across all devices.
 
 FIND3 is an [open-source project](https://github.com/schollz/find3) that comprises several main components:
 
-1. Data storage server [(github.com/schollz/find3/server/main)](https://github.com/schollz/find3/tree/master/server/main)
-2. Machine learning server [(github.com/schollz/find3/server/ai)](https://github.com/schollz/find3/tree/master/server/ai)
+1. Data storage server [(github.com/msantamariaglobant/find3server/main)](https://github.com/msantamariaglobant/find3tree/master/server/main)
+2. Machine learning server [(github.com/msantamariaglobant/find3server/ai)](https://github.com/msantamariaglobant/find3tree/master/server/ai)
 3. Command-line tool for gathering fingerprints [(schollz/find3-cli-scanner)](https://github.com/schollz/find3-cli-scanner)
 4. Android app for gathering fingerprints [(schollz/find3-android-scanner)](https://github.com/schollz/find3-android-scanner)
 
@@ -141,13 +141,13 @@ FIND3 is a complete re-write of the previous version of FIND ([github.com/scholl
 
 ## Can I use FIND3 on my iPhone? {#iphone}
 
-FIND does not support iPhones. 
+FIND does not support iPhones.
 
 Unfortunately, the information about the WiFi scanning has to come from the use of the [Apple80211 library](https://stackoverflow.com/questions/9684341/iphone-get-a-list-of-all-ssids-without-private-library/9684945#9684945). This is private library which means that a user would have to [jail break](https://stackoverflow.com/questions/6341547/ios-can-i-manually-associate-wifi-network-with-geographic-location/6341893#6341893) their device in order to use it. We do not want to distribute an app that would require users to jailbreak their phones, so we will have to avoid developing for iOS until Apple removes this restriction. Sorry!
 
 ## Does it use a WiFi location database?
 
-There is no dependency on external resources like [WiFi location databases](https://en.wikipedia.org/wiki/Wi-Fi_positioning_system#Public_Wi-Fi_location_databases). However, there is a feature to automatically extract GPS coordinates from a location database. 
+There is no dependency on external resources like [WiFi location databases](https://en.wikipedia.org/wiki/Wi-Fi_positioning_system#Public_Wi-Fi_location_databases). However, there is a feature to automatically extract GPS coordinates from a location database.
 
 ## What is the minimum distance that can be resolved? {#minimum}
 
@@ -172,7 +172,7 @@ This indicates that these two places are probably too close together. Compare th
 
 ## Can it pick up locations between floors?
 
-Yes, because floors tend to attenuate the signal, so there is a noticeable difference when you are in the same position, but on different floors. 
+Yes, because floors tend to attenuate the signal, so there is a noticeable difference when you are in the same position, but on different floors.
 
 ## How long does it take to learn a location? {#training-time}
 
@@ -206,7 +206,7 @@ At this point, the accuracy had improved enough for me to move on to learn other
 
 ## Can I run FIND3 on a Raspberry Pi?
 
-Yes. Just make sure to build the server and/or client natively from the source code. If you use Docker, make sure to [install Docker correctly](https://github.com/schollz/find3/issues/1#issuecomment-370205508) and build the Docker images yourself and note that you need at least 1GB of RAM and 1GB of Swap to build the images. 
+Yes. Just make sure to build the server and/or client natively from the source code. If you use Docker, make sure to [install Docker correctly](https://github.com/msantamariaglobant/find3issues/1#issuecomment-370205508) and build the Docker images yourself and note that you need at least 1GB of RAM and 1GB of Swap to build the images.
 
 ## Why use SQLite vs BoltDB?
 
