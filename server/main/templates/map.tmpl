@@ -6,7 +6,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Map</h1>
+                    <h1>Map of places</h1>
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
                             <h4 class="card-title mb-0">Current locations</h4>
                         </div>
                     </div>
-                    
+
                     <div class="content mt-3">
                         <div id="map" style="height:500px;"></div>
                     </div>
@@ -151,7 +151,7 @@ function timeSince(date) {
         "hideMethod": "fadeOut"
     }
 
- 
+
 })(jQuery);
 </script>
 
@@ -192,7 +192,7 @@ function update_position() {
                 ])
                 .bindPopup(popupContent)
                 .bindTooltip(toolTipContent,
-                    {permanent: true, 
+                    {permanent: true,
                     direction: 'top'
                 })
                 .addTo(map);
@@ -203,7 +203,7 @@ function update_position() {
                     .update();
             }
             updatedMarkers[locData] = true;
-        } 
+        }
 
         // remove markers for which there were no updates (no devices at them)
         for (key in marker) {

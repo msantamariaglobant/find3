@@ -6,7 +6,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Map</h1>
+                    <h1>Map of Users</h1>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
                             <h4 class="card-title mb-0">Current locations</h4>
                         </div>
                     </div>
-                    
+
                     <div class="content mt-3">
                         <div id="map" style="height:500px;"></div>
                     </div>
@@ -143,7 +143,7 @@ var date  = new Date();
     var marker = {}
 
 
-    
+
     function iterateClock() {
         $("#timesince").text(timeSince(date));
     }
@@ -190,7 +190,7 @@ const socketMessageListener = (event) => {
     console.log(hashedMove);
     var seenDate = new Date(0);
     seenDate.setUTCMilliseconds(data.sensors.t);
-    var popupContent = "Location: " + data['location'] + "<br>Probability: " + Math.round(data['guesses'][0]['probability']*100) + "%" + "<br>Seen at " + seenDate; 
+    var popupContent = "Location: " + data['location'] + "<br>Probability: " + Math.round(data['guesses'][0]['probability']*100) + "%" + "<br>Seen at " + seenDate;
     var toolTipContent = device;
     if (!marker.hasOwnProperty(device)) {
         marker[device] = L.marker([
@@ -199,7 +199,7 @@ const socketMessageListener = (event) => {
         ])
         .bindPopup(popupContent)
         .bindTooltip(toolTipContent,
-            {permanent: true, 
+            {permanent: true,
             direction: 'top'
         })
         .addTo(map);
@@ -261,7 +261,7 @@ function update_position() {
                 ])
                 .bindPopup(popupContent)
                 .bindTooltip(toolTipContent,
-                    {permanent: true, 
+                    {permanent: true,
                     direction: 'top'
                 })
                 .addTo(map);
@@ -272,7 +272,7 @@ function update_position() {
                     .update();
             }
             updatedMarkers[locData] = true;
-        } 
+        }
 
         // remove markers for which there were no updates (no devices at them)
         for (key in marker) {
