@@ -1,4 +1,4 @@
-module github.com/schollz/find3
+module github.com/msantamariaglobant/find3
 
 require (
 	github.com/NYTimes/gziphandler v1.0.1
