@@ -1,0 +1,26 @@
+version: '3'
+
+networks:
+  find3-network:
+    driver: bridge
+
+services:
+  find3server:
+    container_name: find3server
+    #image: schollz/find3
+    build: ./
+    restart: always
+    volumes:
+      - ./find3server:/data
+      #- ./extra:/extra
+    environment:
+      - MQTT_ADMIN=admin
+      - MQTT_PASS=mypass
+      - MQTT_SERVER='localhost:1883'
+      - MQTT_EXTERNAL='192.168.1.7'
+      - MQTT_PORT=1884
+    ports:
+      - "11883:1883"
+      - "8005:8003"
+    networks:
+      - find3-network
