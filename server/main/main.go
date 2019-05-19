@@ -12,10 +12,10 @@ import (
 
 	"fmt"
 
-	"github.com/msantamariaglobant/find3server/main/src/api"
-	"github.com/msantamariaglobant/find3server/main/src/database"
-	"github.com/msantamariaglobant/find3server/main/src/mqtt"
-	"github.com/msantamariaglobant/find3server/main/src/server"
+	"github.com/msantamariaglobant/find3/server/main/src/api"
+	"github.com/msantamariaglobant/find3/server/main/src/database"
+	"github.com/msantamariaglobant/find3/server/main/src/mqtt"
+	"github.com/msantamariaglobant/find3/server/main/src/server"
 )
 
 func main() {

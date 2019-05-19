@@ -155,7 +155,7 @@ $ http POST https://cloud.internalpositioning.com/api/v1/settings/passive \
 
 ## Issues?
 
-If you have issues, please [file a bug report on Github](https://github.com/msantamariaglobant/find3issues/new?template=bugs.md&title=Bug:%20).
+If you have issues, please [file a bug report on Github](https://github.com/msantamariaglobant/find3/issues/new?template=bugs.md&title=Bug:%20).
 
 ## Source
 

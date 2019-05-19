@@ -55,7 +55,7 @@ func NewServer(docs string) (http.Handler, error) {
 	mux := http.NewServeMux()
 	mux.Handle("/", http.HandlerFunc(s.handleDoc))
 	mux.Handle("/images/", http.FileServer(http.Dir(docs)))
-	mux.Handle("/issue/", redirectHandler("/issue/", "https://github.com/msantamariaglobant/find3issues/"))
+	mux.Handle("/issue/", redirectHandler("/issue/", "https://github.com/msantamariaglobant/find3/issues/"))
 	s.handlers = goGetHandler{gziphandler.GzipHandler(canonicalHostHandler{mux})}
 
 	return s, nil

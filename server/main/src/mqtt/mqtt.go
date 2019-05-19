@@ -13,11 +13,11 @@ import (
 
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"github.com/pkg/errors"
-	"github.com/msantamariaglobant/find3server/main/src/api"
-	"github.com/msantamariaglobant/find3server/main/src/database"
-	"github.com/msantamariaglobant/find3server/main/src/logging"
-	"github.com/msantamariaglobant/find3server/main/src/models"
-	"github.com/msantamariaglobant/find3server/main/src/utils"
+	"github.com/msantamariaglobant/find3/server/main/src/api"
+	"github.com/msantamariaglobant/find3/server/main/src/database"
+	"github.com/msantamariaglobant/find3/server/main/src/logging"
+	"github.com/msantamariaglobant/find3/server/main/src/models"
+	"github.com/msantamariaglobant/find3/server/main/src/utils"
 )
 
 var (

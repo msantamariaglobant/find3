@@ -13,10 +13,10 @@ import (
 	"github.com/gin-contrib/gzip"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
-	"github.com/msantamariaglobant/find3server/main/src/api"
-	"github.com/msantamariaglobant/find3server/main/src/database"
-	"github.com/msantamariaglobant/find3server/main/src/models"
-	"github.com/msantamariaglobant/find3server/main/src/mqtt"
+	"github.com/msantamariaglobant/find3/server/main/src/api"
+	"github.com/msantamariaglobant/find3/server/main/src/database"
+	"github.com/msantamariaglobant/find3/server/main/src/models"
+	"github.com/msantamariaglobant/find3/server/main/src/mqtt"
 	"github.com/schollz/utils"
 )
 

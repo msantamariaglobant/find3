@@ -44,7 +44,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-instal
 	export PATH="/usr/local/go/bin:$PATH"; \
 	go version && \
 	mkdir /build && cd /build && \
-	git clone https://github.com/msantamariaglobant/find3.git && \
+	git clone https://github.com/msantamariaglobant/find3/.git && \
 	mkdir /data && \
 	mkdir /app && \
 	echo '#!/bin/bash\n\

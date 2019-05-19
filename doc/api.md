@@ -651,5 +651,5 @@ POST /api/v1/gps
 
 ## API requests?
 
-If you have API requests, please [file an idea on Github](https://github.com/msantamariaglobant/find3issues/new?title=Feature:%20).
+If you have API requests, please [file an idea on Github](https://github.com/msantamariaglobant/find3/issues/new?title=Feature:%20).
 

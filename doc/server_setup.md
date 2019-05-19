@@ -67,27 +67,27 @@ $ sudo apt-get install mosquitto-clients mosquitto
 Then get the latest source and Go dependencies.
 
 ```
-$ go get -u -v github.com/msantamariaglobant/find3...
+$ go get -u -v github.com/msantamariaglobant/find3/...
 ```
 
 Then install the Python dependencies.
 
 ```
-$ cd $GOPATH/src/github.com/msantamariaglobant/find3server/ai
+$ cd $GOPATH/src/github.com/msantamariaglobant/find3/server/ai
 $ sudo python3 -m pip install -r requirements.txt
 ```
 
 Now there are two pieces of the server to start. In one terminal you can run the AI server.
 
 ```
-$ cd $GOPATH/src/github.com/msantamariaglobant/find3server/ai
+$ cd $GOPATH/src/github.com/msantamariaglobant/find3/server/ai
 $ make
 ```
 
 In the other terminal you can run the main data storage server.
 
 ```
-$ cd $GOPATH/src/github.com/msantamariaglobant/find3server/main
+$ cd $GOPATH/src/github.com/msantamariaglobant/find3/server/main
 $ go build -v
 $ ./main -port 8005
 ```
@@ -97,7 +97,7 @@ $ ./main -port 8005
 To test that things are working you can submit some test data to the server. Download a test script which will make requests to the server:
 
 ```bash
-$ cd $GOPATH/src/github.com/msantamariaglobant/find3server/main/testing
+$ cd $GOPATH/src/github.com/msantamariaglobant/find3/server/main/testing
 $ python3 submit_jsons.py http://localhost:8005 testdb.learn.1439597065993.jsons
 ```
 

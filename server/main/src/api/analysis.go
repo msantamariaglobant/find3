@@ -9,10 +9,10 @@ import (
 
 	"github.com/pkg/errors"
 	cache "github.com/robfig/go-cache"
-	"github.com/msantamariaglobant/find3server/main/src/database"
-	"github.com/msantamariaglobant/find3server/main/src/learning/nb1"
-	"github.com/msantamariaglobant/find3server/main/src/models"
-	"github.com/msantamariaglobant/find3server/main/src/utils"
+	"github.com/msantamariaglobant/find3/server/main/src/database"
+	"github.com/msantamariaglobant/find3/server/main/src/learning/nb1"
+	"github.com/msantamariaglobant/find3/server/main/src/models"
+	"github.com/msantamariaglobant/find3/server/main/src/utils"
 )
 
 // AIPort designates the port for the AI processing

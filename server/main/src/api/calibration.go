@@ -13,11 +13,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/msantamariaglobant/find3server/main/src/database"
-	"github.com/msantamariaglobant/find3server/main/src/learning/nb1"
-	"github.com/msantamariaglobant/find3server/main/src/learning/nb2"
-	"github.com/msantamariaglobant/find3server/main/src/models"
-	"github.com/msantamariaglobant/find3server/main/src/utils"
+	"github.com/msantamariaglobant/find3/server/main/src/database"
+	"github.com/msantamariaglobant/find3/server/main/src/learning/nb1"
+	"github.com/msantamariaglobant/find3/server/main/src/learning/nb2"
+	"github.com/msantamariaglobant/find3/server/main/src/models"
+	"github.com/msantamariaglobant/find3/server/main/src/utils"
 )
 
 // Calibrate will send the sensor data for a specific family to the machine learning algorithms

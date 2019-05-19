@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/msantamariaglobant/find3doc"
+	"github.com/msantamariaglobant/find3/doc"
 )
 
 func main() {

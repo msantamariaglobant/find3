@@ -1,6 +1,6 @@
 package database
 
-import "github.com/msantamariaglobant/find3server/main/src/logging"
+import "github.com/msantamariaglobant/find3/server/main/src/logging"
 
 var DebugMode bool
 var logger *logging.SeelogWrapper

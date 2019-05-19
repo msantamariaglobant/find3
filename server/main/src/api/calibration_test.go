@@ -12,8 +12,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/msantamariaglobant/find3server/main/src/database"
-	"github.com/msantamariaglobant/find3server/main/src/models"
+	"github.com/msantamariaglobant/find3/server/main/src/database"
+	"github.com/msantamariaglobant/find3/server/main/src/models"
 	"github.com/stretchr/testify/assert"
 )
 

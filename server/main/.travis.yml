@@ -4,7 +4,7 @@ go:
   - tip
 
 before_install:
-  - go get github.com/msantamariaglobant/find3server/main
+  - go get github.com/msantamariaglobant/find3/server/main
 script:
-  - cd $GOPATH/src/github.com/msantamariaglobant/find3server/main
+  - cd $GOPATH/src/github.com/msantamariaglobant/find3/server/main
   - make

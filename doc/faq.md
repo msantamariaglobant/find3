@@ -41,8 +41,8 @@ Locations are determined on the FIND server using classification. Currently the 
 
 FIND3 is an [open-source project](https://github.com/schollz/find3) that comprises several main components:
 
-1. Data storage server [(github.com/msantamariaglobant/find3server/main)](https://github.com/msantamariaglobant/find3tree/master/server/main)
-2. Machine learning server [(github.com/msantamariaglobant/find3server/ai)](https://github.com/msantamariaglobant/find3tree/master/server/ai)
+1. Data storage server [(github.com/msantamariaglobant/find3/server/main)](https://github.com/msantamariaglobant/find3/tree/master/server/main)
+2. Machine learning server [(github.com/msantamariaglobant/find3/server/ai)](https://github.com/msantamariaglobant/find3/tree/master/server/ai)
 3. Command-line tool for gathering fingerprints [(schollz/find3-cli-scanner)](https://github.com/schollz/find3-cli-scanner)
 4. Android app for gathering fingerprints [(schollz/find3-android-scanner)](https://github.com/schollz/find3-android-scanner)
 
@@ -206,7 +206,7 @@ At this point, the accuracy had improved enough for me to move on to learn other
 
 ## Can I run FIND3 on a Raspberry Pi?
 
-Yes. Just make sure to build the server and/or client natively from the source code. If you use Docker, make sure to [install Docker correctly](https://github.com/msantamariaglobant/find3issues/1#issuecomment-370205508) and build the Docker images yourself and note that you need at least 1GB of RAM and 1GB of Swap to build the images.
+Yes. Just make sure to build the server and/or client natively from the source code. If you use Docker, make sure to [install Docker correctly](https://github.com/msantamariaglobant/find3/issues/1#issuecomment-370205508) and build the Docker images yourself and note that you need at least 1GB of RAM and 1GB of Swap to build the images.
 
 ## Why use SQLite vs BoltDB?
 

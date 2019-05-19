@@ -1,6 +1,6 @@
 [![Version 3.0](https://img.shields.io/badge/read-docs-blue.svg?style=for-the-badge)](https://www.internalpositioning.com/doc)
 [![Version 3.0](https://img.shields.io/badge/join-slack-orange.svg?style=for-the-badge)](https://join.slack.com/t/find3/shared_invite/enQtMzU4MjY0NjE1NjU0LWRkY2JhNWFkM2U3Y2JhY2RlZTQ5ZTdmZTQ2M2UzMjI2MGVmMjZlOWQyZmU3MzM5YzIzOTM0YmYzYmQ3NTQzNjQ)
-[![Version 3.0](https://img.shields.io/badge/version-3.3.0-brightgreen.svg?style=for-the-badge)](https://github.com/msantamariaglobant/find3releases/latest)
+[![Version 3.0](https://img.shields.io/badge/version-3.3.0-brightgreen.svg?style=for-the-badge)](https://github.com/msantamariaglobant/find3/releases/latest)
 [![Donate](https://img.shields.io/badge/donate-$-brown.svg?style=for-the-badge)](https://www.paypal.me/ZackScholl/5.00)
 [![Say Thanks](https://img.shields.io/badge/Say%20Thanks-!-yellow.svg?style=for-the-badge)](https://saythanks.io/to/schollz)
 
@@ -32,8 +32,8 @@ The API for sending fingerprints (`/track` and `/learn`) and MQTT endpoints are 
 
 *FIND3* is a framework with multiple components. There are multiple repositories that have the components, including:
 
-- Data storage server [(this repo)](https://github.com/msantamariaglobant/find3tree/master/server/main)
-- Machine learning server [(this repo)](https://github.com/msantamariaglobant/find3tree/master/server/ai)
+- Data storage server [(this repo)](https://github.com/msantamariaglobant/find3/tree/master/server/main)
+- Machine learning server [(this repo)](https://github.com/msantamariaglobant/find3/tree/master/server/ai)
 - Command-line tool for gathering fingerprints [(schollz/find3-cli-scanner)](https://github.com/schollz/find3-cli-scanner)
 - Android app for gathering fingerprints [(schollz/find3-android-scanner)](https://github.com/schollz/find3-android-scanner)
 - ESP code for gathering fingerprints with ESP8266/ESP32 [(DatanoiseTV/esp-find3-client)](https://github.com/DatanoiseTV/esp-find3-client)
