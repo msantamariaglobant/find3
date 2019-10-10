@@ -211,8 +211,6 @@ long += rho * cos(phi)
     var hashedMoveLong = hmrho * Math.cos(hmphi);
     console.log(hashedMoveLat);
     console.log(hashedMoveLong);
-    var hashedMoveLat = hmrho * sin(hmphi);
-    var hashedMoveLong = hmrho * cos(hmphi);
     var seenDate = new Date(0);
     seenDate.setUTCMilliseconds(data.sensors.t);
     var popupContent = "Location: " + data['location'] + "<br>Probability: " + Math.round(data['guesses'][0]['probability']*100) + "%" + "<br>Seen at " + seenDate;

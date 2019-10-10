@@ -17,13 +17,11 @@ services:
       - MQTT_ADMIN=admin
       - MQTT_PASS=1234
       - MQTT_SERVER='localhost:1883'
-      - MQTT_EXTERNAL='10.0.0.6'
+      - MQTT_EXTERNAL='10.20.11.175'
      #- MQTT_EXTERNAL='34.219.188.184'
-      - MQTT_PORT=1884
+      - MQTT_PORT=1883
     ports:
-      - "11883:1883
-     # - "80:8003"
-     # - "443:8003"
+      - "11883:1883"
       - "8003:8003"
     networks:
       - find3-network
