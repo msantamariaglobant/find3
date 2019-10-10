@@ -8,19 +8,22 @@ services:
   find3server:
     container_name: find3server
     #image: schollz/find3
-    build: ./
+    build: .
     restart: always
     volumes:
       - ./find3server:/data
       #- ./extra:/extra
     environment:
       - MQTT_ADMIN=admin
-      - MQTT_PASS=mypass
+      - MQTT_PASS=1234
       - MQTT_SERVER='localhost:1883'
-      - MQTT_EXTERNAL='192.168.1.7'
+      - MQTT_EXTERNAL='10.0.0.6'
+     #- MQTT_EXTERNAL='34.219.188.184'
       - MQTT_PORT=1884
     ports:
-      - "11883:1883"
-      - "8005:8003"
+      - "11883:1883
+     # - "80:8003"
+     # - "443:8003"
+      - "8003:8003"
     networks:
       - find3-network

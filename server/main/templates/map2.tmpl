@@ -200,16 +200,25 @@ lat += rho * sin(phi)
 long += rho * cos(phi)
 
 */
+<<<<<<< HEAD
     var hmrho = (device.hashCode() % 1000) / 10000000;
+=======
+    var hmrho = (device.hashCode() % 1000) / 100000000000;
+>>>>>>> 721f4a01cd3f53b6cde6be0f8ce4ebfb4d0f5c53
     var hmphifirst = (device.hashCode() / 1000) % 1000;
     var myPI = 2 * Math.PI;
     var hmphi =  (hmphifirst * myPI) / 1000;
     //var hashedMove = hmphi + hmro;
     //console.log(hashedMove);
+<<<<<<< HEAD
     var hashedMoveLat = hmrho * Math.sin(hmphi);
     var hashedMoveLong = hmrho * Math.cos(hmphi);
     console.log(hashedMoveLat);
     console.log(hashedMoveLong);
+=======
+    var hashedMoveLat = hmrho * sin(hmphi);
+    var hashedMoveLong = hmrho * cos(hmphi);
+>>>>>>> 721f4a01cd3f53b6cde6be0f8ce4ebfb4d0f5c53
     var seenDate = new Date(0);
     seenDate.setUTCMilliseconds(data.sensors.t);
     var popupContent = "Location: " + data['location'] + "<br>Probability: " + Math.round(data['guesses'][0]['probability']*100) + "%" + "<br>Seen at " + seenDate;
