@@ -21,6 +21,6 @@ services:
       - MQTT_PORT=1884
     ports:
       - "11883:1883"
-      - "8005:8003"
+      - "8003:8003"
     networks:
       - find3-network
