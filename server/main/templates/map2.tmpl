@@ -186,16 +186,38 @@ const socketMessageListener = (event) => {
     data = JSON.parse(event.data);
     console.log(data);
     var device = data['sensors']['d']
-    var hashedMove = device.hashCode()/40000000000000;
-    console.log(hashedMove);
+
+    //var hashedMove = device.hashCode()/40000000000000;
+    /*
+    hashedMove
+rho = hasheeMove_parte alta
+phi = hasheeMove_parte baja
+
+0000000 FFFFFF
+phi 0 --> 2pi
+
+lat += rho * sin(phi)
+long += rho * cos(phi)
+
+*/
+    var hmrho = (device.hashCode() % 1000) / 10000000;
+    var hmphifirst = (device.hashCode() / 1000) % 1000;
+    var myPI = 2 * Math.PI;
+    var hmphi =  (hmphifirst * myPI) / 1000;
+    //var hashedMove = hmphi + hmro;
+    //console.log(hashedMove);
+    var hashedMoveLat = hmrho * Math.sin(hmphi);
+    var hashedMoveLong = hmrho * Math.cos(hmphi);
+    console.log(hashedMoveLat);
+    console.log(hashedMoveLong);
     var seenDate = new Date(0);
     seenDate.setUTCMilliseconds(data.sensors.t);
     var popupContent = "Location: " + data['location'] + "<br>Probability: " + Math.round(data['guesses'][0]['probability']*100) + "%" + "<br>Seen at " + seenDate;
     var toolTipContent = device;
     if (!marker.hasOwnProperty(device)) {
         marker[device] = L.marker([
-            data['sensors']['gps']['lat'] + hashedMove,
-            data['sensors']['gps']['lon'] + hashedMove
+            data['sensors']['gps']['lat'] + hashedMoveLat,
+            data['sensors']['gps']['lon'] + hashedMoveLong
         ])
         .bindPopup(popupContent)
         .bindTooltip(toolTipContent,
