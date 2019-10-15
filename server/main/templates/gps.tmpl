@@ -34,7 +34,7 @@ marker{{.Hash}}.on('dragend', function (e) {
     });
 });
 
-$.getJSON("../laminar9.geojson", function(geoJSON) {
+$.getJSON("laminar9.json", function(geoJSON) {
 
     var indoorLayer = new L.Indoor(geoJSON, {
         getLevel: function(feature) {
