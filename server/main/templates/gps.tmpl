@@ -33,7 +33,7 @@ marker{{.Hash}}.on('dragend', function (e) {
         }
     });
 });
-{{end}}
+
 
 $.getJSON("laminar9.json", function(geoJSON) {
 
@@ -84,3 +84,4 @@ levelControl.addEventListener("levelchange", indoorLayer.setLevel, indoorLayer);
 levelControl.addTo(map);
 
  });
+{{end}}
