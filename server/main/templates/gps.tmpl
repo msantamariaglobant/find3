@@ -64,7 +64,7 @@ $.getJSON("laminar9.json", function(geoJSON) {
             };
         }
     });
- });
+
 // where data is a GeoJSON feature collection
 //var indoorLayer = new L.Indoor(data);
 
@@ -83,4 +83,4 @@ levelControl.addEventListener("levelchange", indoorLayer.setLevel, indoorLayer);
 
 levelControl.addTo(map);
 
-
+ });
