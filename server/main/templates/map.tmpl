@@ -168,6 +168,41 @@ var map = new L.Map('map', {
   'layers': [tileLayer]
 });
 
+L.Indoor(jQuery.getJSON("laminar9.json", function(geoJSON) {
+
+            var indoorLayer = new L.Indoor(geoJSON, {
+                getLevel: function(feature) {
+                    if (feature.properties.relations.length === 0)
+                        return null;
+
+                    return feature.properties.relations[0].reltags.level;
+                },
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(JSON.stringify(feature.properties, null, 4));
+                },
+                style: function(feature) {
+                    var fill = 'white';
+
+                    if (feature.properties.tags.buildingpart === 'corridor') {
+                        fill = '#169EC6';
+                    } else if (feature.properties.tags.buildingpart === 'verticalpassage') {
+                        fill = '#0A485B';
+                    }
+
+                    return {
+                        fillColor: fill,
+                        weight: 1,
+                        color: '#666',
+                        fillOpacity: 1
+                    };
+                }
+            });
+
+            indoorLayer.setLevel("1");
+
+            indoorLayer.addTo(map);
+
+        }););
 var marker = {}
 
 function update_position() {
