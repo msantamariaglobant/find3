@@ -200,7 +200,7 @@ $.getJSON("/static/laminar9.json", function(geoJSON) {
 
             indoorLayer.setLevel("1");
 
-            indoorLayer.addTo(map);
+            indoorLayer.OnAdd(map);
 
         });
 var levelControl = new L.Control.Level({
@@ -211,7 +211,7 @@ var levelControl = new L.Control.Level({
             // Connect the level control to the indoor layer
             levelControl.addEventListener("levelchange", indoorLayer.setLevel, indoorLayer);
 
-            levelControl.addTo(map);
+            levelControl.OnAdd(map);
 
 
         var legend = L.control({position: 'topright'});
@@ -230,7 +230,7 @@ var levelControl = new L.Control.Level({
             return div;
         };
 
-        legend.addTo(map);
+        legend.OnAdd(map);
 
 var marker = {}
 
