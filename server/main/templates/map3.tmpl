@@ -225,10 +225,47 @@ const socketMessageListener = (event) => {
     console.log(data);
     var device = data['sensors']['d']
     console.log(device);
+   //  ecef antenna[5];
+  var geoAntenna = [
+    { "posLat": -34.596818517699430, "posLong": -58.37099231779576 ,  "name": "makerspace-sniffer-wifi"},
+    { "posLat": -34.596766631836830, "posLong": -58.37109759449960 , "name": "puesto 85-sniffer-wifi"},
+    { "posLat": -34.596814101900000, "posLong": -58.37121158840000 , "name": "parquedigital-sniffer-wifi"},
+    { "posLat": -34.596933328854654, "posLong": -58.37114721536637 ,  "name": "puesto40-sniffer-wifi"}
+  ];
+   /* { -34.596818517699430, -58.37099231779576 }, // makerspace
+    { -34.596766631836830, -58.37109759449960 }, //puesto 85
+    { -34.596814101900000, -58.37121158840000 }, //parquedigital
+    { -34.596933328854654, -58.37114721536637 }  //puesto40
+  };*/
+  //sensors.s.wifi
     if (device == "wifi-cc:cc:cc:cc:cc:cc"){
+var matchObj = [];
+var m = 0;
+for (var i = 0; i < geoAntenna.length; i++) {
+    var nameObj = geoAntenna[i]
+    console.log(nameObj);
+    var dataObj = data['sensors']['s']['wifi'];
+    console.log(dataObj);
+    for (var j = 0; j < dataObj.length; j++) {
+        //dataObj[i]
+        if (dataObj[j].hasOwnProperty(nameObj.name)){
+            var valuerssi = dataObj[j];
+            console.log(valuerssi);
+            matchObj[m] = [ nameObj.posLat, nameObj.posLong, valuerssi[nameObj.name]];
+            m++;
+    }
+}
+console.log(matchObj);
+//nameObj.name
+//dataObj[j][nameObj.name]
 
 
-
+        /*compute gps location and power*/
+var p1=[-19.6685,-69.1942,84];
+var p2=[-20.2705,-70.1311,114];
+var p3=[-20.5656,-70.1807,120];
+var a=Compute(p1,p2,p3);
+//document.getElementById("latlon").innerHTML="LatLon: "+a;
 
     //var hashedMove = device.hashCode()/40000000000000;
     /*
@@ -244,7 +281,7 @@ long += rho * cos(phi)
 
 */
 
-    var hmrho = (device.hashCode() % 1000) / 10000000;
+    /*var hmrho = (device.hashCode() % 1000) / 10000000;
     var hmphifirst = (device.hashCode() / 1000) % 1000;
     var myPI = 2 * Math.PI;
     var hmphi =  (hmphifirst * myPI) / 1000;
@@ -253,15 +290,19 @@ long += rho * cos(phi)
     var hashedMoveLat = hmrho * Math.sin(hmphi);
     var hashedMoveLong = hmrho * Math.cos(hmphi);
     console.log(hashedMoveLat);
-    console.log(hashedMoveLong);
+    console.log(hashedMoveLong);*/
     var seenDate = new Date(0);
     seenDate.setUTCMilliseconds(data.sensors.t);
     var popupContent = "Location: " + data['location'] + "<br>Probability: " + Math.round(data['guesses'][0]['probability']*100) + "%" + "<br>Seen at " + seenDate;
     var toolTipContent = device;
     if (!marker.hasOwnProperty(device)) {
         marker[device] = L.marker([
-            data['sensors']['gps']['lat'] + hashedMoveLat,
-            data['sensors']['gps']['lon'] + hashedMoveLong
+            /*data['sensors']['gps']['lat'] + hashedMoveLat,
+            data['sensors']['gps']['lon'] + hashedMoveLong*/
+            //nuestra data
+            a[0],
+            a[1]
+
         ])
         .bindPopup(popupContent)
         .bindTooltip(toolTipContent,
