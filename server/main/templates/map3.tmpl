@@ -246,9 +246,10 @@ for (var i = 0; i < geoAntenna.length; i++) {
     console.log(nameObj);
     var dataObj = data['sensors']['s']['wifi'];
     console.log(dataObj);
-    for (var j = 0; j < dataObj.length; j++) {
+    for (var j = 0; j < Object.keys(dataObj).length; j++) {
         //dataObj[i]
         console.log(nameObj.name);
+        // Object.keys(myObject).length;
         if (dataObj.hasOwnProperty(nameObj.name)){
             var valuerssi = dataObj;
             console.log(valuerssi);
