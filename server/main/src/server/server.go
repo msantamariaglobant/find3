@@ -135,6 +135,67 @@ func Run() (err error) {
 			"DeviceJS": template.JS(device),
 		})
 	})
+	r.GET("/view/map3/:family", func(c *gin.Context) {
+		family := strings.ToLower(c.Param("family"))
+
+		err := func(family string) (err error) {
+			gpsData, err := api.GetGPSData(family)
+			if err != nil {
+				return
+			}
+
+			// initialize GPS data
+			type gpsdata struct {
+				Hash      template.JS
+				Location  template.JS
+				Latitude  template.JS
+				Longitude template.JS
+			}
+			data := make([]gpsdata, len(gpsData))
+			avgLat := 0.0
+			avgLon := 0.0
+			i := 0
+			for loc := range gpsData {
+				data[i].Hash = template.JS(utils.Md5Sum(loc))
+				data[i].Location = template.JS(loc)
+				latitude := 0.0
+				longitude := 0.0
+				if _, ok := gpsData[loc]; ok {
+					latitude = gpsData[loc].GPS.Latitude
+					longitude = gpsData[loc].GPS.Longitude
+				}
+				avgLat += latitude
+				avgLon += longitude
+				data[i].Latitude = template.JS(fmt.Sprintf("%2.10f", latitude))
+				data[i].Longitude = template.JS(fmt.Sprintf("%2.10f", longitude))
+				i++
+			}
+			avgLat = avgLat / float64(len(gpsData))
+			avgLon = avgLon / float64(len(gpsData))
+
+			c.HTML(200, "map3.tmpl", gin.H{
+				"UserMap":  true,
+				"Family":   family,
+				"Device":   "all",
+				"FamilyJS": template.JS(family),
+				"DeviceJS": template.JS("all"),
+				"Data":     data,
+				"Center":   template.JS(fmt.Sprintf("%2.5f,%2.5f", avgLat, avgLon)),
+			})
+			return
+		}(family)
+		if err != nil {
+			logger.Log.Warn(err)
+			c.HTML(200, "map3.tmpl", gin.H{
+				"UserMap":      true,
+				"ErrorMessage": err.Error(),
+				"Family":       family,
+				"Device":       "all",
+				"FamilyJS":     template.JS(family),
+				"DeviceJS":     template.JS("all"),
+			})
+		}
+	})
 	r.GET("/view/map2/:family", func(c *gin.Context) {
 		family := strings.ToLower(c.Param("family"))
 
