@@ -224,6 +224,11 @@ const socketMessageListener = (event) => {
     data = JSON.parse(event.data);
     console.log(data);
     var device = data['sensors']['d']
+    console.log(device);
+    if (device == "wifi-cc:cc:cc:cc:cc:cc"){
+
+
+
 
     //var hashedMove = device.hashCode()/40000000000000;
     /*
@@ -272,7 +277,7 @@ long += rho * cos(phi)
             .update();
     }
 };
-
+};//end if cccc
 const socketOpenListener = (event) => {
   console.log('Connected');
   socket.send('hello');
