@@ -301,7 +301,7 @@ const socketMessageListener = (event) => {
                 if (dataObj.hasOwnProperty(nameObj.name)){
                     var valuerssi = dataObj;
                     console.log(valuerssi);
-                    matchObj[m] = [ nameObj.posLat, nameObj.posLong, valuerssi[nameObj.name]];
+                    matchObj[j] = [ nameObj.posLat, nameObj.posLong, valuerssi[nameObj.name]];
                     m++;
                 }
             }
