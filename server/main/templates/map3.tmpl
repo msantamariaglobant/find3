@@ -200,7 +200,7 @@ $.getJSON("/static/laminar9.json", function(geoJSON) {
     }
 //distance([-34.5968141019, -58.3712115884], [-34.59681851769943, -58.37099231779576]);
 
-function dBm2meters( matchObj ){
+function dbm2meters( matchObj ){
   var power_mW = [];
   for (i = 0; i < 3; i++) {
     power_mW[i] = Math.pow(10, matchObj[i][2]/10);
