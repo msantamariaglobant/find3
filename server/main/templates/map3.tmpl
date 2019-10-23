@@ -181,6 +181,58 @@ $.getJSON("/static/laminar9.json", function(geoJSON) {
     var marker = {}
 
 
+    function distance( geoA, geoB ){
+        var earthR = 6.3781e6; // radio de la tierra en metros.
+        var a = [];
+        var b = [];
+        var M_PI = Math.PI;
+  // X
+        a[0] = earthR * Math.cos( M_PI*(geoA[0])/180.0 ) * Math.cos( M_PI*(geoA[1])/180.0 );
+        b[0] = earthR * Math.cos( M_PI*(geoB[0])/180.0 ) * Math.cos( M_PI*(geoB[1])/180.0 );
+  // Y
+        a[1] = earthR * Math.cos( M_PI*(geoA[0])/180.0 ) * Math.sin( M_PI*(geoA[1])/180.0 );
+        b[1] = earthR * Math.cos( M_PI*(geoB[0])/180.0 ) * Math.sin( M_PI*(geoB[1])/180.0 );
+  // Z
+        a[2] = earthR * Math.sin( M_PI*(geoA[0])/180.0 );
+        b[2] = earthR * Math.sin( M_PI*(geoB[0])/180.0 );
+
+       return Math.sqrt( Math.pow(b[0] - a[0],2) + Math.pow(b[1] - a[1],2) + Math.pow(b[2] - a[2],2));
+    }
+//distance([-34.5968141019, -58.3712115884], [-34.59681851769943, -58.37099231779576]);
+
+function dBm2meters( matchObj ){
+  var power_mW = [];
+  for (i = 0; i < 3; i++) {
+    power_mW[i] = Math.pow(10, matchObj[i][2]/10);
+  }
+  // Ahora la parte jodida está en estimar el radio de cada una de las antenas.
+  // No tenemos la relación directa de mW de potencia a metros.  (tampoco existe, dicho sea de paso)
+  // Pero si tenemos pares de antenas que vieron la misma señal, y sabemos la distancia
+  // entre antenas y la potencia de recepción a cada una. El respectivo radio de
+  // cada una de las antenas está en la relación de
+  // D_a = D * sqrt( P_b / (P_a + P_b) )
+  // donde D = distancia entre A y B, P_a potencia de recepción en A, y P_b en B.
+  // Tomo todas las antenas de a pares para promediar, y tener una mejor estimación
+  // del radio.
+  var raddi = [];
+  //var antenna = [];
+  for (a = 0; a < 3; a++) {
+    raddi[a] = 0;
+    for (b = 0; b < 3; b++) {
+      if ( a != b ) {
+        var antennaA = [matchObj[a][0], matchObj[a][1]];
+        var antennaB = [matchObj[b][0], matchObj[b][1]];
+        var D = distance(antennaA, antennaB);
+        raddi[a] += D * Math.sqrt( power_mW[b] / (power_mW[a] + power_mW[b]) );
+      }
+
+    }
+    raddi[a] = raddi[a] / 2 ;
+    //cout << "A[" << a << "] = (lat,lon) =  (" << antenna[a].lat << "," << antenna[a].lon << ")\t";
+    //cout << "\tr: " << raddi[a] << endl;
+  }
+  return raddi;
+}
 
     function iterateClock() {
         $("#timesince").text(timeSince(date));
@@ -222,7 +274,7 @@ var socket;
 
 const socketMessageListener = (event) => {
     data = JSON.parse(event.data);
-    console.log(data);
+    //console.log(data);
     var device = data['sensors']['d']
     console.log(device);
    //  ecef antenna[5];
@@ -232,77 +284,47 @@ const socketMessageListener = (event) => {
     { "posLat": -34.596814101900000, "posLong": -58.37121158840000 , "name": "parquedigital-sniffer-wifi"},
     { "posLat": -34.596933328854654, "posLong": -58.37114721536637 ,  "name": "puesto40-sniffer-wifi"}
   ];
-   /* { -34.596818517699430, -58.37099231779576 }, // makerspace
-    { -34.596766631836830, -58.37109759449960 }, //puesto 85
-    { -34.596814101900000, -58.37121158840000 }, //parquedigital
-    { -34.596933328854654, -58.37114721536637 }  //puesto40
-  };*/
+
   //sensors.s.wifi
     if (device == "wifi-cc:cc:cc:cc:cc:cc"){
-var matchObj = [];
-var m = 0;
-for (var i = 0; i < geoAntenna.length; i++) {
-    var nameObj = geoAntenna[i]
-    console.log(nameObj);
-    var dataObj = data['sensors']['s']['wifi'];
-    console.log(dataObj);
-    for (var j = 0; j < Object.keys(dataObj).length; j++) {
-        //dataObj[i]
-        console.log(nameObj.name);
-        // Object.keys(myObject).length;
-        if (dataObj.hasOwnProperty(nameObj.name)){
-            var valuerssi = dataObj;
-            console.log(valuerssi);
-            matchObj[m] = [ nameObj.posLat, nameObj.posLong, valuerssi[nameObj.name]];
-            m++;
-    }
-  }
-}
-console.log(matchObj);
-//nameObj.name
-//dataObj[j][nameObj.name]
+        var matchObj = [];
+        var m = 0;
+        for (var i = 0; i < geoAntenna.length; i++) {
+            var nameObj = geoAntenna[i]
+            console.log(nameObj);
+            var dataObj = data['sensors']['s']['wifi'];
+            console.log(dataObj);
+            for (var j = 0; j < Object.keys(dataObj).length; j++) {
+                //dataObj[i]
+                console.log(nameObj.name);
+                // Object.keys(myObject).length;
+                if (dataObj.hasOwnProperty(nameObj.name)){
+                    var valuerssi = dataObj;
+                    console.log(valuerssi);
+                    matchObj[m] = [ nameObj.posLat, nameObj.posLong, valuerssi[nameObj.name]];
+                    m++;
+                }
+            }
+        }
+    console.log(matchObj);
+    if (matchObj.length >= 3){
 
+        var radiosDataPoints = dbm2meters(matchObj);
+        console.log(radiosDataPoints);
+        var p1=[matchObj[0][0],matchObj[0][1],radiosDataPoints[0]];
+        var p2=[matchObj[1][0],matchObj[1][1],radiosDataPoints[1]];
+        var p3=[matchObj[2][0],matchObj[2][1],radiosDataPoints[2]];
 
-        /*compute gps location and power*/
-var p1=[-19.6685,-69.1942,84];
-var p2=[-20.2705,-70.1311,114];
-var p3=[-20.5656,-70.1807,120];
-var a=Compute(p1,p2,p3);
-//document.getElementById("latlon").innerHTML="LatLon: "+a;
+        var a=Compute(p1,p2,p3);
+    //}
 
-    //var hashedMove = device.hashCode()/40000000000000;
-    /*
-    hashedMove
-rho = hasheeMove_parte alta
-phi = hasheeMove_parte baja
-
-0000000 FFFFFF
-phi 0 --> 2pi
-
-lat += rho * sin(phi)
-long += rho * cos(phi)
-
-*/
-
-    /*var hmrho = (device.hashCode() % 1000) / 10000000;
-    var hmphifirst = (device.hashCode() / 1000) % 1000;
-    var myPI = 2 * Math.PI;
-    var hmphi =  (hmphifirst * myPI) / 1000;
-    //var hashedMove = hmphi + hmro;
-    //console.log(hashedMove);
-    var hashedMoveLat = hmrho * Math.sin(hmphi);
-    var hashedMoveLong = hmrho * Math.cos(hmphi);
-    console.log(hashedMoveLat);
-    console.log(hashedMoveLong);*/
     var seenDate = new Date(0);
     seenDate.setUTCMilliseconds(data.sensors.t);
     var popupContent = "Location: " + data['location'] + "<br>Probability: " + Math.round(data['guesses'][0]['probability']*100) + "%" + "<br>Seen at " + seenDate;
     var toolTipContent = device;
     if (!marker.hasOwnProperty(device)) {
         marker[device] = L.marker([
-            /*data['sensors']['gps']['lat'] + hashedMoveLat,
-            data['sensors']['gps']['lon'] + hashedMoveLong*/
-            //nuestra data
+
             a[0],
             a[1]
 
@@ -321,6 +343,7 @@ long += rho * cos(phi)
             .update();
     }
 };
+};//end si es mayor de 3
 };//end if cccc
 const socketOpenListener = (event) => {
   console.log('Connected');
