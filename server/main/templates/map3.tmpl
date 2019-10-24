@@ -312,7 +312,7 @@ const socketMessageListener = (event) => {
   var p2=[ matchObj[1].pos[0], matchObj[1].pos[1], matchObj[1].radio/10e3];
   var p3=[ matchObj[2].pos[0], matchObj[2].pos[1], matchObj[2].radio/10e3];
 
-  var pos=getTrilateration(p1,p2,p3);
+  var pos=Compute(p1,p2,p3);
   console.log("pos: " + pos);
 
   var seenDate = new Date(0);
