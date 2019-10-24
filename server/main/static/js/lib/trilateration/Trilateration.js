@@ -12,7 +12,7 @@
  *   https://github.com/tbmsp/trilateration
  *
  */
-function Compute(position1,position2,pposition3){
+function Compute(position1,position2,position3){
 
       // #assuming elevation = 0
       var earthR = 6371
