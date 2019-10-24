@@ -15,7 +15,7 @@
 function Compute(position1,position2,position3){
 
       // #assuming elevation = 0
-      var earthR = 6371
+      var earthR = 6.371e6
         , rad = function(deg) {
           return deg * (math.pi/180)
         }

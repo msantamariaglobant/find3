@@ -308,9 +308,9 @@ const socketMessageListener = (event) => {
 
   dbm2meters( matchObj );
   console.log(matchObj);
-  var p1=[ matchObj[0].pos[0], matchObj[0].pos[1], matchObj[0].radio/10e3];
-  var p2=[ matchObj[1].pos[0], matchObj[1].pos[1], matchObj[1].radio/10e3];
-  var p3=[ matchObj[2].pos[0], matchObj[2].pos[1], matchObj[2].radio/10e3];
+  var p1=[ matchObj[0].pos[0], matchObj[0].pos[1], matchObj[0].radio;
+  var p2=[ matchObj[1].pos[0], matchObj[1].pos[1], matchObj[1].radio;
+  var p3=[ matchObj[2].pos[0], matchObj[2].pos[1], matchObj[2].radio;
 
   var pos=Compute(p1,p2,p3);
   console.log("pos: " + pos);
