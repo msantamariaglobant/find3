@@ -189,7 +189,7 @@ $.getJSON("/static/laminar9.json", function(geoJSON) {
       return Math.sqrt( Math.pow( coord[0],2) + Math.pow( coord[1],2) );
     }
 
-    function triangulate( matchObj ){
+    function triangulate( match ){
       var sqrt_power_mW = [];
       for (i = 0; i < match.length ; i++) {
         sqrt_power_mW[i] = Math.sqrt( Math.pow(10, match[i].rssi/10) );
