@@ -180,44 +180,48 @@ $.getJSON("/static/laminar9.json", function(geoJSON) {
 
     var marker = {}
 
-
-    function distance( geoA, geoB ){
-        var earthR = 6.3781e6;
-        var a = [];
-        var b = [];
-        var M_PI = Math.PI;
-
-        a[0] = earthR * Math.cos( M_PI*(geoA[0])/180.0 ) * Math.cos( M_PI*(geoA[1])/180.0 );
-        b[0] = earthR * Math.cos( M_PI*(geoB[0])/180.0 ) * Math.cos( M_PI*(geoB[1])/180.0 );
-
-        a[1] = earthR * Math.cos( M_PI*(geoA[0])/180.0 ) * Math.sin( M_PI*(geoA[1])/180.0 );
-        b[1] = earthR * Math.cos( M_PI*(geoB[0])/180.0 ) * Math.sin( M_PI*(geoB[1])/180.0 );
-
-        a[2] = earthR * Math.sin( M_PI*(geoA[0])/180.0 );
-        b[2] = earthR * Math.sin( M_PI*(geoB[0])/180.0 );
-
-       return Math.sqrt( Math.pow(b[0] - a[0],2) + Math.pow(b[1] - a[1],2) + Math.pow(b[2] - a[2],2));
+    function displacement( geoA, geoB ){
+        deltaLat = geoB.lat - geoA.lat;
+        deltaLon = geoB.lon - geoA.lon;
+       return [ deltaLat, deltaLon ];
+    }
+    function mod( coord ){
+      return Math.sqrt( Math.pow( coord[0],2) + Math.pow( coord[1],2) );
     }
 
-    function dbm2meters( matchObj ){
+    function triangulate( matchObj ){
       var sqrt_power_mW = [];
-      for (i = 0; i < matchObj.length ; i++) {
-        sqrt_power_mW[i] = Math.sqrt( Math.pow(10, matchObj[i].rssi/10) );
+      for (i = 0; i < match.length ; i++) {
+        sqrt_power_mW[i] = Math.sqrt( Math.pow(10, match[i].rssi/10) );
       }
 
-      for (a = 0; a < matchObj.length; a++) {
-        matchObj[a].radio = 0;
-        for (b = 0; b < matchObj.length; b++) {
-          if ( a != b ) {
-            var antennaA = [matchObj[a].pos[0], matchObj[a].pos[1]];
-            var antennaB = [matchObj[b].pos[0], matchObj[b].pos[1]];
-            var D = distance(antennaA, antennaB);
-            matchObj[a].radio += D *  sqrt_power_mW[b] / ( sqrt_power_mW[a] + sqrt_power_mW[b] );
-          }
-        }
-        matchObj[a].radio /= (matchObj.length-1) ;
-        matchObj[a].radio *= 1.5;
-      }
+      var D_20 = displacement( match[2].pos, match[0].pos );
+      var D_10 = displacement( match[1].pos, match[0].pos );
+
+      var D_20_mod = mod (D_20);
+      var D_10_mod = mod (D_10);
+      var D_2 = D_20_mod * sqrt_power_mW[2] / ( sqrt_power_mW[0] + sqrt_power_mW[2] );
+      var D_1 = D_10_mod * sqrt_power_mW[1] / ( sqrt_power_mW[0] + sqrt_power_mW[1] );
+
+
+      D_20[0] *= D_2 / D_20_mod;
+      D_20[1] *= D_2 / D_20_mod;
+      D_10[0] *= D_1 / D_10_mod;
+      D_10[1] *= D_1 / D_10_mod;
+
+      d1 = D_10;
+
+      var P = [ D_20[0] + D_10[0], D_20[1] + D_10[1] ];
+      var P_mod = mod(P);
+      var P_versor = [ P[0]/P_mod, P[1]/P_mod ];
+
+      k = ( d1[0] * P[0] + d1[1] * P[1] ) / ( P_mod * P_mod );
+      r  = [ P[0]*k , P[1]*k ];
+      console.log( "r "+r );
+
+
+      var pos = [ match[0].pos.lat , match[0].pos.lon ];
+      return [ pos[0] + r[0], pos[1] + r[1] ];
     }
 
     function iterateClock() {
@@ -306,13 +310,8 @@ const socketMessageListener = (event) => {
     }
   }
 
-  dbm2meters( matchObj );
-  console.log(matchObj);
-  var p1=[ matchObj[0].pos[0], matchObj[0].pos[1], matchObj[0].radio;
-  var p2=[ matchObj[1].pos[0], matchObj[1].pos[1], matchObj[1].radio;
-  var p3=[ matchObj[2].pos[0], matchObj[2].pos[1], matchObj[2].radio;
 
-  var pos=Compute(p1,p2,p3);
+  var pos = triangulate( matchObj );
   console.log("pos: " + pos);
 
   var seenDate = new Date(0);
