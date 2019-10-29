@@ -180,11 +180,6 @@ $.getJSON("/static/laminar9.json", function(geoJSON) {
 
     var marker = {}
 
-    function displacement( geoA, geoB ){
-        deltaLat = geoB.lat - geoA.lat;
-        deltaLon = geoB.lon - geoA.lon;
-       return [ deltaLat, deltaLon ];
-    }
     function mod( coord ){
       return Math.sqrt( Math.pow( coord[0],2) + Math.pow( coord[1],2) );
     }
@@ -195,9 +190,9 @@ $.getJSON("/static/laminar9.json", function(geoJSON) {
         sqrt_power_mW[i] = Math.sqrt( Math.pow(10, match[i].rssi/10) );
       }
 
-      var D_20 = displacement( match[2].pos, match[0].pos );
+      var D_20 = [ match[2].pos[0] - match[0].pos[0], match[2].pos[1] - match[0].pos[1] ];
       console.log( "D_20 :"+ D_20 )
-      var D_10 = displacement( match[1].pos, match[0].pos );
+      var D_10 = [ match[1].pos[0] - match[0].pos[0], match[1].pos[1] - match[0].pos[1] ];
       console.log( "D_10 :"+ D_10 )
 
       D_20[0] *= sqrt_power_mW[2] / ( sqrt_power_mW[0] + sqrt_power_mW[2] );
@@ -221,7 +216,7 @@ $.getJSON("/static/laminar9.json", function(geoJSON) {
       r = [ P_versor[0]*k , P_versor[1]*k ];
       console.log( "r "+r );
 
-      var pos = [ match[0].pos.lat , match[0].pos.lon ];
+      var pos = [ match[0].pos[0] , match[0].pos[1] ];
       console.log( "pos "+pos );
       return [ pos[0] + r[0], pos[1] + r[1] ];
     }
