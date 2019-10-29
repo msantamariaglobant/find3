@@ -196,7 +196,9 @@ $.getJSON("/static/laminar9.json", function(geoJSON) {
       }
 
       var D_20 = displacement( match[2].pos, match[0].pos );
+      console.log( "D_20 :"+ D_20 )
       var D_10 = displacement( match[1].pos, match[0].pos );
+      console.log( "D_10 :"+ D_10 )
 
       D_20[0] *= sqrt_power_mW[2] / ( sqrt_power_mW[0] + sqrt_power_mW[2] );
       D_20[1] *= sqrt_power_mW[2] / ( sqrt_power_mW[0] + sqrt_power_mW[2] );
@@ -204,16 +206,23 @@ $.getJSON("/static/laminar9.json", function(geoJSON) {
       D_10[1] *= sqrt_power_mW[1] / ( sqrt_power_mW[0] + sqrt_power_mW[1] );
 
       d1 = D_10;
+      console.log( "D_20 :"+ D_20 )
+      console.log( "D_10 :"+ D_10 )
 
       var P = [ D_20[0] + D_10[0], D_20[1] + D_10[1] ];
+      console.log( "P :"+ P )
       var P_mod = mod(P);
+      console.log( "P_mod :"+ P_mod )
       var P_versor = [ P[0]/P_mod, P[1]/P_mod ];
+      console.log( "P_versor :"+ P_versor )
 
       k = ( d1[0] * P[0] + d1[1] * P[1] ) / ( P_mod );
+      console.log( "k :"+ k )
       r = [ P_versor[0]*k , P_versor[1]*k ];
       console.log( "r "+r );
 
       var pos = [ match[0].pos.lat , match[0].pos.lon ];
+      console.log( "pos "+pos );
       return [ pos[0] + r[0], pos[1] + r[1] ];
     }
 
@@ -283,7 +292,6 @@ const socketMessageListener = (event) => {
                 "name": key,
                 "pos": [ geoAntenna[i].lat, geoAntenna[i].lon],
                 "rssi": sensors[key],
-                "radio": 0
               };
               m++;
           }
